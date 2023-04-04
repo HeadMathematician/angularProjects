@@ -1,0 +1,11 @@
+<button class="btnStart" (click)="start()">Start</button>
+<button class="btnDisplay" (click)="toggleDisplay = !toggleDisplay">Display the word</button>
+<p *ngIf="toggleDisplay==true">{{randomWord}}</p>
+
+<div class="board">
+    <div class="square" *ngFor="let square of squares; let i = index"
+     [ngStyle]="{'background-color':colorSquares[i]== 1 ? 'green' : colorSquares[i] == 2 ? 'orange' : colorSquares[i] == 3 ?
+     'lightgrey' : 'white', 'color': colorSquares[i] == 1 || colorSquares[i] == 2 ? 'white' : 'black'}">
+        <div>{{square}}</div>
+    </div>
+</div>

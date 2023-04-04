@@ -1,0 +1,63 @@
+.keyboard{
+    width:750px;
+    height:270px;
+    margin:auto;
+    align-items:center;
+    justify-content:center;
+}
+
+.letter{
+    width:60px;
+    height:60px;
+    float:left;
+    border: 1px solid black;
+    font-size:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:4px;
+    cursor:pointer;
+    background-color:white;
+}
+
+.row_one{
+    width:750px;
+    height:72px;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    
+}
+
+.row_two{
+    width:700px;
+    height:72px;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    margin-left:25px;
+}
+
+.row_three{
+    width:700px;
+    height:72px;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    margin-left:25px;
+}
+.enter, .delete{
+    width:120px;
+    height:60px;
+    float:left;
+    border: 1px solid black;
+    font-size:27px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:4px;
+    margin:5px;
+    cursor:pointer;
+    background-color:white;
+
+}

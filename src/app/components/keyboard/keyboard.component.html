@@ -1,0 +1,14 @@
+<div class="keyboard" >
+    <div class="row_one">
+        <div class="letter" *ngFor="let letter of row_one" (click)="setLetter(letter)">{{letter}}</div>
+    </div>
+    <div class="row_two">
+        <div class="letter" *ngFor="let letter of row_two" (click)="setLetter(letter)">{{letter}}</div>
+    </div>
+    <div class="row_three">
+        <div class="enter" (click)="enterBtn()">ENTER</div>
+        <div class="letter" *ngFor="let letter of row_three" (click)="setLetter(letter)">{{letter}}</div>
+        <div class="delete" (click)="deleteBtn()">DELETE</div>
+    </div>
+    
+</div>
