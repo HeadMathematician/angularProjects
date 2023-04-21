@@ -1,0 +1,18 @@
+<div class="dialog-container">
+    <div class="dialog-box">
+      <h2>Add Department</h2>
+      <form (ngSubmit)="create(form)" #form="ngForm">
+        <label>Department No:</label>
+        <input type="text" name="departmentNo" ngModel required>
+  
+        <label>Department Name:</label>
+        <input type="text" name="departmentName" ngModel required>
+  
+        <label>Department Location:</label>
+        <input type="text" name="departmentLocation" ngModel required>
+  
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  

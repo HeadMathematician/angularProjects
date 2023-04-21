@@ -1,0 +1,37 @@
+<app-dashboard></app-dashboard>
+
+<button id="addBtn" (click)="addUserDialog()">Add Employee</button>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{column}}</th>
+        <th class="actionColumn" style="width:150px">Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSource; let i = index">
+        <td>{{item.loginNo}}</td>
+        <td>{{item.loginUserName}}</td>
+        <td>{{item.loginPassword}}</td>
+        <td> 
+          <button class="actionBtn" (click)="editRow(i)">Edit</button>
+          <button class="actionBtn" style="background-color:rgb(188, 31, 31)" (click)="deleteUser(item.loginNo)">Delete</button>
+        </td>
+      </tr>
+      <ng-container *ngIf="editIndex >= 0">
+        <tr>
+          <td><input [(ngModel)]="dataSource[editIndex].loginNo" disabled ></td>
+          <td><input [(ngModel)]="dataSource[editIndex].loginUserName"></td>
+          <td><input [(ngModel)]="dataSource[editIndex].loginPassword" disabled></td>
+          <td class="action-column">
+            <button class="saveBtn" (click)="saveRow()" style="background-color:rgb(20, 217, 85)">Save</button>
+            <button class="cancelBtn" (click)="cancelEdit()" style="background-color:grey">Cancel</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+

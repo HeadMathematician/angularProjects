@@ -1,0 +1,14 @@
+<div class="login">
+    <h2>CRUD App</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input [(ngModel)]="user.username" type="text" id="username" name="username" required>
+      <label for="password">Password:</label>
+      <input [(ngModel)]="user.password" type="password" id="password" name="password" required>
+      <button type="submit" (click)="login()">Login</button>
+    </form>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  </div>
+  
+
+  

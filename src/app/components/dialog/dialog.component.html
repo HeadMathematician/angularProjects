@@ -1,0 +1,21 @@
+<div class="dialog-container">
+    <div class="dialog-box">
+      <h2>Add Employee</h2>
+      <form (ngSubmit)="create(form)" #form="ngForm">
+        <label>Employee No:</label>
+        <input type="text" name="employeeNo" ngModel required>
+  
+        <label>Employee Name:</label>
+        <input type="text" name="employeeName" ngModel required>
+  
+        <label>Salary:</label>
+        <input type="number" name="salary" ngModel required>
+  
+        <label>Department Number:</label>
+        <input type="text" name="departmentNo" ngModel required>
+  
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  
