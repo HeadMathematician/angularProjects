@@ -16,7 +16,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private router: Router
   ) {
-    let accessToken = this.storageService.get('accessToken_karla');
+    let accessToken = this.storageService.get('accessToken');
     let tokenPayload = this.jwtHelper.decodeToken(accessToken);
     if (
       accessToken != null &&
