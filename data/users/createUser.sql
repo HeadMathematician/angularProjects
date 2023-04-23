@@ -2,10 +2,12 @@ INSERT INTO [dbo].[loginData]
     (
         [loginNo],
         [loginUserName],
-        [loginPassword]
+        [loginPassword],
+        [authMethod]
     )
 VALUES (
     @loginNo,
     @loginUserName,
-    @loginPassword
+    @loginPassword,
+    @authMethod
 )

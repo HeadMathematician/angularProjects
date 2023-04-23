@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const config = require('./config');
 const cors = require('cors');
@@ -10,11 +8,16 @@ const employeeRoutes = require('./routes/employeeRoutes');
 
 const app = express();
 
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
 app.use('/api', usersRoutes.routes);
 app.use('/api', departmentRoutes.routes);
 app.use('/api', employeeRoutes.routes);
 
-app.listen(config.port, () => console.log('Server is listening on http://localhost:' + config.port))
+app.listen(config.port, () => console.log('Server is listening on http://localhost:' + config.port));

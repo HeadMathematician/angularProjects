@@ -1,6 +1,7 @@
 UPDATE [dbo].[loginData]
 SET [loginNo]=@loginNo
     ,[loginUserName]=@loginUserName
+    ,[authMethod]=@authMethod
 WHERE [loginNo]=@loginNo_Id
 
 SELECT *

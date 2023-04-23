@@ -6,6 +6,7 @@ const sql = require('mssql');
 const jwt = require('jsonwebtoken');
 
 
+
 const getUsers = async () => {
     try{
         let pool = await sql.connect(config.sql);
@@ -24,6 +25,7 @@ const createUser = async (loginData) => {
         const insertUser = await pool.request().input('loginNo', sql.Int, loginData.loginNo)
                                                .input('loginUserName', sql.NVarChar(20), loginData.loginUserName)
                                                .input('loginPassword', sql.NVarChar(20), loginData.loginPassword)
+                                               .input('authMethod', sql.NVarChar(20), loginData.authMethod)
                                                .query(sqlQueries.createUser);
         return insertUser.recordset;
     } catch(error){
@@ -42,11 +44,28 @@ const deleteUser = async(loginNo) => {
     }
 }
 
+
+const updateUser = async(loginNo, userData) =>{
+  try{
+      let pool = await sql.connect(config.sql);
+      const sqlQueries = await utils.loadSqlQueries('users');
+      const update = await pool.request()
+                          .input('loginNo_Id', sql.Int, loginNo)
+                          .input('loginNo', sql.Int, userData.loginNo)
+                          .input('loginUserName', sql.NVarChar(20), userData.loginUserName)
+                          .input('authMethod', sql.NVarChar(20), userData.authMethod)
+                          .query(sqlQueries.updateUser);
+      return update.recordset;
+  } catch(error){
+      return error.message;
+  }
+}
+
+
 const userAuth = async (loginData) => {
   try {
     const { username, password } = loginData;
 
-    // Checking if the user exists and if it exists, storing it to user variable 
     let pool = await sql.connect(config.sql);
     const sqlQueries = await utils.loadSqlQueries('users');
     const result = await pool.request().input('loginUserName', sql.NVarChar(20), loginData.loginUserName).query(sqlQueries.usersList);
@@ -61,14 +80,12 @@ const userAuth = async (loginData) => {
     if (!user) {
       throw new Error('User not found');
     }
-
-    // Using the user variable, accessing the password from the table row and checking the match
     if (user.loginPassword !== password) {
       throw new Error('Invalid password');
     }
     
     console.log('User successfully authenticated');
-    // If the user is sucessfully authenticated, generating a jwt access token and a refresh token that I can use later in frontend part of the app
+
     const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
     const refreshToken = jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
@@ -80,20 +97,12 @@ const userAuth = async (loginData) => {
 };
 
 
-const updateUser = async(loginNo, userData) =>{
-  try{
-      let pool = await sql.connect(config.sql);
-      const sqlQueries = await utils.loadSqlQueries('users');
-      const update = await pool.request()
-                          .input('loginNo_Id', sql.Int, loginNo)
-                          .input('loginNo', sql.Int, userData.loginNo)
-                          .input('loginUserName', sql.NVarChar(20), userData.loginUserName)
-                          .query(sqlQueries.updateUser);
-      return update.recordset;
-  } catch(error){
-      return error.message;
-  }
-}
+// Facebook authentication handler
+
+
+
+
+
 
   
 module.exports = {
@@ -102,4 +111,5 @@ module.exports = {
     deleteUser,
     userAuth,
     updateUser,
+    
 }
