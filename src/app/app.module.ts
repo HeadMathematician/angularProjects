@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './services/auth.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { StorageService } from './services/storage.service';
 import { UserService } from './services/user.service';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
@@ -21,6 +21,13 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 import { DepartmentDialogComponent } from './components/department-dialog/department-dialog.component';
 import { AuthGuard } from './auth.guard';
+import { AuthInterceptor } from 'src/auth.interceptor';
+
+
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
 
 
 export function tokenGetter() {
@@ -43,6 +50,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     MatDialogModule,
+    SocialLoginModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -55,7 +63,28 @@ export function tokenGetter() {
     }),
     BrowserAnimationsModule,
   ],
-  providers: [AuthService, HttpClient, StorageService, UserService, JwtHelperService, ApiService, AuthGuard],
+   providers: [AuthService, HttpClient, StorageService, UserService, JwtHelperService, ApiService, AuthGuard,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('957169968797333')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

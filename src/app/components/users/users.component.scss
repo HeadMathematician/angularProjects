@@ -29,24 +29,23 @@ table {
   }
 
   .action-column {
-    display: flex;
+    display:flex;
     justify-content: space-between;
     align-items: center;
     
   }
 
   
-  
   .actionBtn {
-    padding: 10px;
+    padding:5px;
     font-size: 17px;
     background-color: #aaa526;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    display: inline-block;
-    margin-right: 16px;
+    margin-right: 6px;
+    display:inline-block;
   }
   
 #addBtn{
@@ -63,7 +62,7 @@ table {
 }
 
 .saveBtn, .cancelBtn {
-  padding: 10px;
+  padding: 4px;
   font-size: 17px;
   color: white;
   border: none;

@@ -2,6 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class DashboardComponent  {
 
   constructor(private apiService: ApiService, private router:Router, 
-    private auth:AuthService){
+    private auth:AuthService, private fbauth: SocialAuthService){
 
   }
 
@@ -35,6 +36,10 @@ goToUsers(){
 
 logout(){
   this.auth.logout()
+}
+
+signOut(){
+  this.fbauth.signOut();
 }
 
 }

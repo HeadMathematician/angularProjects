@@ -5,10 +5,24 @@
       <input [(ngModel)]="user.username" type="text" id="username" name="username" required>
       <label for="password">Password:</label>
       <input [(ngModel)]="user.password" type="password" id="password" name="password" required>
+      <button *ngIf="!loggedIn" class="btn btn-primary" role="button" style="width:40px; height:36px;display:inline-block;margin-right:30px;">
+        <i class="fab fa-facebook-f mr-auto" style="font-size:22px"></i> 
+      </button>
       <button type="submit" (click)="login()">Login</button>
     </form>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
   </div>
   
 
+  
+<!--   
+  <div *ngIf="loggedIn">
+    <img src="{{ userFB.response.picture.data.url }}" >
+    <div>
+      <h4>{{ userFB.name }}</h4>
+      <p>{{ userFB.email }}</p>
+    </div>
+    <button (click)="signOutFB()">Logout</button>
+  </div> -->
+  
   

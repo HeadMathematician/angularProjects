@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,10 @@ export class AuthService {
     private storageService: StorageService,
     private userService: UserService,
     private jwtHelper: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private fbauth: SocialAuthService
   ) {
-    let accessToken = this.storageService.get('accessToken_karla');
+    let accessToken = this.storageService.get('accessToken');
     let tokenPayload = this.jwtHelper.decodeToken(accessToken);
     if (
       accessToken != null &&
@@ -52,14 +54,9 @@ export class AuthService {
         this.storageService.set('refreshToken', refreshToken);
 
         let tokenPayload = this.jwtHelper.decodeToken(accessToken);
-        console.log(tokenPayload);
-        // this.userService.user.username = tokenPayload.username;
-
         this.userService.$user.next({ username: tokenPayload.userName });
 
-        // console.log((this.userService.user.username = tokenPayload.username));
-
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/departments']);
       }
     });
   }
@@ -73,6 +70,10 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     this.router.navigate([''])
+  }
+
+  signOuFB(): void {
+    this.fbauth.signOut();
   }
   
 }
