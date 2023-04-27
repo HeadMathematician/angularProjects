@@ -1,0 +1,42 @@
+<app-dashboard></app-dashboard>
+
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{column}}</th>
+        <th class="actionColumn" style="width:150px">Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSource; let i = index">
+        <td>{{item.loginNo}}</td>
+        <td>{{item.loginUserName}}</td>
+        <td>{{item.loginPassword}}</td>
+        <td> 
+          <button class="actionBtn" (click)="addUserDialog()" style="background-color:rgb(47, 212, 47)"><i class="fas fa-plus"></i></button>
+          <button class="actionBtn" (click)="editRow(i)"><i class="fas fa-edit"></i></button>
+          <button class="actionBtn" style="background-color:red" (click)="deleteUser(item.loginNo)"><i class="fas fa-trash-alt"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="displayEdit"  class="dialog-container">
+  <div class="dialog-box">
+    <h2>Update Department</h2>
+      <label>Login No:</label>
+      <input type="number"[(ngModel)]="dataSource[editIndex].loginNo">
+
+      <label>Login Username:</label>
+      <input type="text" [(ngModel)]="dataSource[editIndex].loginUserName" >
+
+      <div class="button-container">
+        <button type="submit" (click)="saveRow()">Update</button>
+        <button type="submit" (click)="cancelEdit()" style="background-color:red">Cancel</button>
+      </div>
+      
+  </div>
+</div>
